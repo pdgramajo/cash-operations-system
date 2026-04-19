@@ -1,0 +1,19 @@
+{
+  "title": "Movimientos",
+  "new": "Nuevo Movimiento",
+  "type": "Tipo",
+  "income": "Ingreso",
+  "expense": "Egreso",
+  "amount": "Monto",
+  "description": "Descripción",
+  "reference": "Referencia",
+  "date": "Fecha",
+  "time": "Hora",
+  "category": "Categoría",
+  "method": "Método",
+  "cash": "Efectivo",
+  "card": "Tarjeta",
+  "transfer": "Transferencia",
+  "other": "Otro",
+  "noTransactions": "No hay movimientos"
+}

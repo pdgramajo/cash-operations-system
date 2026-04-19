@@ -1,0 +1,16 @@
+{
+  "title": "Carnes",
+  "new": "Nueva Carne",
+  "type": "Tipo",
+  "beef": "Res",
+  "pork": "Cerdo",
+  "poultry": "Pollo",
+  "other": "Otro",
+  "cut": "Corte",
+  "weight": "Peso",
+  "unit": "Unidad",
+  "kg": "Kg",
+  "price": "Precio",
+  "supplier": "Proveedor",
+  "noMovements": "No hay carnes registradas"
+}

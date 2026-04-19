@@ -1,0 +1,21 @@
+{
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "add": "Agregar",
+  "search": "Buscar",
+  "loading": "Cargando...",
+  "error": "Error",
+  "success": "Éxito",
+  "confirm": "Confirmar",
+  "back": "Volver",
+  "next": "Siguiente",
+  "previous": "Anterior",
+  "close": "Cerrar",
+  "yes": "Sí",
+  "no": "No",
+  "actions": "Acciones",
+  "noData": "No hay datos",
+  "selectOption": "Seleccionar opción"
+}

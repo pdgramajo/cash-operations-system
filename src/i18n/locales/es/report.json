@@ -1,0 +1,18 @@
+{
+  "title": "Informes",
+  "generate": "Generar Informe",
+  "dateRange": "Rango de Fechas",
+  "from": "Desde",
+  "to": "Hasta",
+  "today": "Hoy",
+  "thisWeek": "Esta Semana",
+  "thisMonth": "Este Mes",
+  "summary": "Resumen",
+  "details": "Detalle",
+  "totalIncome": "Total Ingresos",
+  "totalExpense": "Total Egresos",
+  "balance": "Balance",
+  "export": "Exportar",
+  "print": "Imprimir",
+  "noReports": "No hay informes generados"
+}

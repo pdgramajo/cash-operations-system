@@ -1,0 +1,12 @@
+{
+  "title": "Sucursales",
+  "add": "Nueva Sucursal",
+  "edit": "Editar Sucursal",
+  "name": "Nombre",
+  "address": "Dirección",
+  "phone": "Teléfono",
+  "active": "Activa",
+  "inactive": "Inactiva",
+  "selectBranch": "Seleccionar Sucursal",
+  "noBranches": "No hay sucursales configuradas"
+}

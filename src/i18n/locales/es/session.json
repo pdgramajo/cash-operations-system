@@ -1,0 +1,18 @@
+{
+  "title": "Cajas",
+  "open": "Abrir Caja",
+  "close": "Cerrar Caja",
+  "session": "Caja",
+  "balance": "Saldo",
+  "initialBalance": "Saldo Inicial",
+  "finalBalance": "Saldo Final",
+  "expectedBalance": "Saldo Esperado",
+  "difference": "Diferencia",
+  "notes": "Notas",
+  "openTime": "Hora de Apertura",
+  "closeTime": "Hora de Cierre",
+  "openSession": "Apertura de Caja",
+  "closeSession": "Cierre de Caja",
+  "sessions": "Cajas",
+  "noSessions": "No hay cajas abiertas"
+}

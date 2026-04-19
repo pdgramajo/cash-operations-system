@@ -1,0 +1,12 @@
+{
+  "home": "Inicio",
+  "dashboard": "Panel",
+  "sessions": "Cajas",
+  "transactions": "Movimientos",
+  "movements": "Carnes",
+  "branches": "Sucursales",
+  "reports": "Informes",
+  "settings": "Configuración",
+  "profile": "Perfil",
+  "logout": "Cerrar Sesión"
+}
