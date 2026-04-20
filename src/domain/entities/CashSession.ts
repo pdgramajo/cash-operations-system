@@ -8,6 +8,9 @@ export interface CashSession {
   readonly closedAt?: string;
   readonly openingCash: number;
   readonly closingCash?: number;
+  readonly expectedClosingCash?: number;
+  readonly countedClosingCash?: number;
+  readonly cashDifference?: number;
   readonly status: CashSessionStatus;
   readonly createdAt: string;
   readonly updatedAt: string;
