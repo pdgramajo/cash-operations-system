@@ -1,12 +1,7 @@
 import { create } from 'zustand';
-import type { Transaction, TransactionType } from '@/domain/entities';
+import type { Transaction } from '@/domain/entities';
 import { db } from '@/infrastructure/db/database';
-
-interface TransactionTotals {
-  totalIncome: number;
-  totalExpense: number;
-  netBalance: number;
-}
+import { getSessionSummary, type SessionSummary } from '@/domain/services';
 
 interface TransactionState {
   transactions: readonly Transaction[];
@@ -17,8 +12,8 @@ interface TransactionState {
 interface TransactionActions {
   loadBySession: (sessionId: string) => Promise<void>;
   createTransaction: (data: Omit<Transaction, 'id' | 'createdAt'>) => Promise<void>;
-  deleteTransaction: (id: string) => Promise<void>;
-  getTotals: (sessionId: string) => Promise<TransactionTotals>;
+  softDeleteTransaction: (id: string) => Promise<void>;
+  getSessionSummary: (openingCash: number) => SessionSummary;
   resetError: () => void;
 }
 
@@ -35,8 +30,10 @@ export const useTransactionStore = create<TransactionStore>((set, get) => ({
       const transactions = await db.transactions
         .where('sessionId')
         .equals(sessionId)
-        .toArray();
-      set({ transactions, loading: false });
+        .sortBy('createdAt');
+
+      const sortedDesc = [...transactions].reverse();
+      set({ transactions: sortedDesc, loading: false });
     } catch (e) {
       set({ error: String(e), loading: false });
     }
@@ -57,12 +54,13 @@ export const useTransactionStore = create<TransactionStore>((set, get) => ({
     }
   },
 
-  deleteTransaction: async (id) => {
+  softDeleteTransaction: async (id) => {
     set({ loading: true, error: null });
     try {
       const tx = await db.transactions.get(id);
       if (tx) {
-        await db.transactions.delete(id);
+        const now = new Date().toISOString();
+        await db.transactions.update(id, { deletedAt: now });
         await get().loadBySession(tx.sessionId);
       }
     } catch (e) {
@@ -70,37 +68,25 @@ export const useTransactionStore = create<TransactionStore>((set, get) => ({
     }
   },
 
-  getTotals: async (sessionId) => {
-    const transactions = await db.transactions
-      .where('sessionId')
-      .equals(sessionId)
-      .toArray();
-
-    const incomeTypes: TransactionType[] = ['sale_cash', 'sale_transfer', 'cash_deposit', 'refund'];
-    const expenseTypes: TransactionType[] = ['expense', 'cash_withdrawal', 'adjustment'];
-
-    const totalIncome = transactions
-      .filter((t) => incomeTypes.includes(t.type))
-      .reduce((sum, t) => sum + t.amount, 0);
-
-    const totalExpense = transactions
-      .filter((t) => expenseTypes.includes(t.type))
-      .reduce((sum, t) => sum + t.amount, 0);
-
-    return {
-      totalIncome,
-      totalExpense,
-      netBalance: totalIncome - totalExpense,
-    };
+  getSessionSummary: (openingCash: number) => {
+    return getSessionSummary(get().transactions, openingCash);
   },
 
   resetError: () => set({ error: null }),
 }));
 
 export const selectTransactions = (state: TransactionStore) => state.transactions;
-export const selectIsLoading = (state: TransactionStore) => state.loading;
+export const selectLoading = (state: TransactionStore) => state.loading;
 export const selectError = (state: TransactionStore) => state.error;
-export const selectIncomeTransactions = (state: TransactionStore) =>
-  state.transactions.filter((t) => t.type.startsWith('sale_'));
+export const selectVisibleTransactions = (state: TransactionStore) =>
+  state.transactions.filter((t) => !t.deletedAt);
+export const selectSalesTransactions = (state: TransactionStore) =>
+  state.transactions.filter(
+    (t) => !t.deletedAt && (t.type === 'sale_cash' || t.type === 'sale_transfer'),
+  );
 export const selectExpenseTransactions = (state: TransactionStore) =>
-  state.transactions.filter((t) => t.type === 'expense' || t.type === 'cash_withdrawal');
+  state.transactions.filter(
+    (t) =>
+      !t.deletedAt &&
+      (t.type === 'expense' || t.type === 'cash_withdrawal'),
+  );

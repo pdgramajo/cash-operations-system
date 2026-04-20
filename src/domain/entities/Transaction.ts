@@ -4,8 +4,10 @@ export type TransactionType =
   | 'expense'
   | 'cash_withdrawal'
   | 'cash_deposit'
-  | 'refund'
-  | 'adjustment';
+  | 'refund_cash'
+  | 'refund_transfer'
+  | 'cash_adjustment_plus'
+  | 'cash_adjustment_minus';
 
 export interface Transaction {
   readonly id: string;
@@ -16,4 +18,5 @@ export interface Transaction {
   readonly recipientName?: string;
   readonly recipientType?: string;
   readonly createdAt: string;
+  readonly deletedAt?: string | null;
 }
